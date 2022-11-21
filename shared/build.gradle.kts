@@ -21,10 +21,15 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("ch.tutteli.atrium:atrium-fluent-en_GB-common:0.18.0")
             }
         }
         val androidMain by getting
-        val androidTest by getting
+        val androidTest by getting {
+            dependencies {
+                implementation("ch.tutteli.atrium:atrium-fluent-en_GB:0.18.0")
+            }
+        }
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -48,9 +53,9 @@ kotlin {
 
 android {
     namespace = "se.phan.redacted"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         minSdk = 26
-        targetSdk = 32
+        targetSdk = 33
     }
 }
