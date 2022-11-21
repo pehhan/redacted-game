@@ -1,4 +1,4 @@
-package se.phan.redacted
+package se.phan.redacted.util
 
 import platform.UIKit.UIDevice
 

@@ -1,4 +1,4 @@
-package se.phan.redacted
+package se.phan.redacted.util
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${android.os.Build.VERSION.SDK_INT}"

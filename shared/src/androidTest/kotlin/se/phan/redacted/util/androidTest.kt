@@ -1,7 +1,8 @@
-package se.phan.redacted
+package se.phan.redacted.util
 
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import se.phan.redacted.util.Greeting
 
 class AndroidGreetingTest {
 

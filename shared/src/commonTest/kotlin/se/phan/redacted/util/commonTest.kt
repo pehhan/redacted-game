@@ -1,4 +1,4 @@
-package se.phan.redacted
+package se.phan.redacted.util
 
 import kotlin.test.Test
 import kotlin.test.assertTrue

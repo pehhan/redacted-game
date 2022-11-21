@@ -1,4 +1,4 @@
-package se.phan.redacted
+package se.phan.redacted.util
 
 class Greeting {
     private val platform: Platform = getPlatform()
