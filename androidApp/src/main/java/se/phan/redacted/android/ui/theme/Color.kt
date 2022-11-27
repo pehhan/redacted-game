@@ -3,20 +3,37 @@ package se.phan.redacted.android.ui.theme
 import androidx.compose.material.Colors
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
-import androidx.compose.ui.graphics.Color
 
 fun themeColors(darkTheme: Boolean): Colors {
     return if (darkTheme) {
         darkColors(
-            primary = Color(0xFFBB86FC),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5)
+            primary = Teal500,
+            primaryVariant = Teal800,
+            secondary = Teal500,
+            secondaryVariant = Teal800,
+            background = Black,
+            surface =  Black,
+            error = Red900,
+            onPrimary = White,
+            onSecondary = White,
+            onBackground = White,
+            onSurface = White,
+            onError = White
         )
     } else {
         lightColors(
-            primary = Color(0xFF6200EE),
-            primaryVariant = Color(0xFF3700B3),
-            secondary = Color(0xFF03DAC5)
+            primary = Teal500,
+            primaryVariant = Teal800,
+            secondary = Teal500,
+            secondaryVariant = Teal800,
+            background = White,
+            surface = White,
+            error = Red900,
+            onPrimary = White,
+            onSecondary = White,
+            onBackground = Black,
+            onSurface = Black,
+            onError = White
         )
     }
 }
