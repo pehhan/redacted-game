@@ -46,6 +46,28 @@ class GameTest {
     }
 
     @Test
+    fun `when making a correct guess that has whitespace before and after the word should be unredacted`() {
+        val text = TextParser.parse("Paul Atreides")
+        val originalGame = Game(text, text)
+        val guess = Guess(" Paul ")
+
+        val gameWithGuess = originalGame.makeGuess(guess)
+
+        val expectedText = Text(
+            listOf(
+                Word("Paul", redacted = false),
+                Space,
+                Word("Atreides", redacted = true)
+            )
+        )
+
+        expect(gameWithGuess.guesses).toEqual(listOf(guess))
+        expect(gameWithGuess.text).toEqual(expectedText)
+        expect(gameWithGuess.title).toEqual(expectedText)
+        expect(gameWithGuess.isCompleted()).toEqual(false)
+    }
+
+    @Test
     fun `when making an incorrect guess the guess count should be increased`() {
         val text = TextParser.parse("Paul Atreides")
         val originalGame = Game(text, text)

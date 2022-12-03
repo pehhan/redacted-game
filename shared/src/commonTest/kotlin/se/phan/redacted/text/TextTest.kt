@@ -147,6 +147,11 @@ class TextTest {
     }
 
     @Test
+    fun `when guessing with whitespace before and after ist should match`() {
+        testDifferentCaps("Atreides", " Atreides ")
+    }
+
+    @Test
     fun `areAllWordsUnredacted returns true when all words in text are unredacted`() {
         val parts = listOf(
             Word("Paul", redacted = false),
