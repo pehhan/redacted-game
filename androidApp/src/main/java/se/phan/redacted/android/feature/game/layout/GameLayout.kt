@@ -12,8 +12,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,8 +31,6 @@ import se.phan.redacted.android.ui.theme.VerticalPadding
 import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 
-private val BottomTextPadding = 80.dp
-
 @Composable
 fun GameLayout(
     gameViewModel: GameViewModel,
@@ -35,6 +38,12 @@ fun GameLayout(
     onGuess: (String) -> Unit
 ) {
     val state by gameViewModel.state.collectAsState()
+
+    val localDensity = LocalDensity.current
+
+    var guessLayoutHeight by remember {
+        mutableStateOf(0.dp)
+    }
 
     ApplicationTheme {
         Background {
@@ -46,17 +55,21 @@ fun GameLayout(
                             start = HorizontalPadding,
                             top = VerticalPadding,
                             end = HorizontalPadding,
-                            bottom = BottomTextPadding
+                            bottom = guessLayoutHeight + VerticalPadding
                         ),
                     verticalArrangement = Arrangement.spacedBy(VerticalPadding)
                 ) {
                     GameTitle(renderer.render(state.title))
                     GameText(renderer.render(state.text))
                 }
-                GuessTextField(
+                GuessLayout(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .onGloballyPositioned { coordinates ->
+                            guessLayoutHeight = with(localDensity) { coordinates.size.height.toDp() }
+                        },
+                    guesses = state.guesses,
                     onGuess = { guess ->
                         onGuess(guess)
                     }
