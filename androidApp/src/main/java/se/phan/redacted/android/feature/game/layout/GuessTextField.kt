@@ -33,7 +33,8 @@ private val FontSize = 24.sp
 private val PlaceholderColor = Color(0xAAFFFFFF)
 
 @Composable
-fun GuessTextField(modifier: Modifier = Modifier) {
+fun GuessTextField(modifier: Modifier = Modifier, onGuess: (String) -> Unit) {
+
     var text by remember { mutableStateOf("") }
 
     val toggleKeyboardIcon = @Composable {
@@ -66,8 +67,9 @@ fun GuessTextField(modifier: Modifier = Modifier) {
         trailingIcon = toggleKeyboardIcon,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(
-            onDone = {
-                // TODO: Handle search
+            onSearch = {
+                onGuess(text)
+                text = ""
             }
         ),
         singleLine = true,
@@ -90,7 +92,7 @@ private fun guessTextFieldColors() = TextFieldDefaults.textFieldColors(
 private fun GuessTextFieldPreview() {
     ApplicationTheme {
         Box {
-            GuessTextField()
+            GuessTextField(onGuess = {})
         }
     }
 }
