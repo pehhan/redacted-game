@@ -11,6 +11,8 @@ data class Game(val title: Text, val text: Text, val guesses: List<Guess>) {
     }
 
     fun makeGuess(guess: Guess): Game {
+        if (guess.value.isBlank()) return this
+        
         val titleText = makeGuessForTitle(guess)
 
         return if (titleText.areAllWordsUnredacted()) {

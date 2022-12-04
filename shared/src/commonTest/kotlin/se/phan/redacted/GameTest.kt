@@ -68,6 +68,17 @@ class GameTest {
     }
 
     @Test
+    fun `when making a guess that is empty the same game should be returned without the guess`() {
+        val text = TextParser.parse("Paul Atreides")
+        val originalGame = Game(text, text)
+        val guess = Guess("")
+
+        val gameWithGuess = originalGame.makeGuess(guess)
+
+        expect(gameWithGuess.guesses).toEqual(emptyList())
+    }
+
+    @Test
     fun `when making an incorrect guess the guess count should be increased`() {
         val text = TextParser.parse("Paul Atreides")
         val originalGame = Game(text, text)
