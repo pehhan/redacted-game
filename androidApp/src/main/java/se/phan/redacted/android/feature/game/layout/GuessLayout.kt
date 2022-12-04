@@ -4,6 +4,9 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -13,6 +16,9 @@ import androidx.compose.ui.unit.dp
 import se.phan.redacted.Guess
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 
+private val GuessesLayoutMaxHeight = 95.dp
+private val DividerThickness = 2.dp
+
 @Composable
 fun GuessLayout(
     modifier: Modifier = Modifier,
@@ -20,8 +26,19 @@ fun GuessLayout(
     onGuess: (String) -> Unit
 ) {
     Column(modifier = modifier.background(MaterialTheme.colors.primary)) {
-        GuessesLayout(guesses = guesses)
-        Divider(thickness = 2.dp, color = MaterialTheme.colors.primaryVariant)
+
+        val stateVertical = rememberScrollState(0)
+
+        GuessesLayout(
+            modifier = Modifier
+                .heightIn(max = GuessesLayoutMaxHeight)
+                .verticalScroll(stateVertical),
+            guesses = guesses
+        )
+        Divider(
+            thickness = DividerThickness,
+            color = MaterialTheme.colors.primaryVariant
+        )
         GuessTextField(
             modifier = Modifier.fillMaxWidth(),
             onGuess = onGuess

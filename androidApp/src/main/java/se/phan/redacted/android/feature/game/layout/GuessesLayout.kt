@@ -9,16 +9,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
 import se.phan.redacted.Guess
+import se.phan.redacted.android.ui.theme.HorizontalPadding
+
+private val HorizontalPaddingBetweenChips = 8.dp
+private val VerticalPaddingBetweenChips = 0.dp
 
 // TODO: Style
 // TODO: Show # of matches
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GuessesLayout(modifier: Modifier = Modifier, guesses: List<Guess>) {
-    FlowRow(modifier = modifier.padding(horizontal = 4.dp)) {
+    FlowRow(
+        modifier = modifier
+            .padding(horizontal = HorizontalPadding),
+        mainAxisSpacing = HorizontalPaddingBetweenChips,
+        crossAxisSpacing = VerticalPaddingBetweenChips
+    ) {
         for (guess in guesses.reversed()) {
             Chip(
-                modifier = Modifier.padding(horizontal = 4.dp),
                 onClick = {
                     // TODO: Jump to first/next occurrence
                 }
