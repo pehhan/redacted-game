@@ -53,7 +53,7 @@ fun GuessLayout(
 private fun GuessLayoutPreview() {
     ApplicationTheme {
         GuessLayout(
-            guesses = listOf(GuessWithMatches(Guess("Frank"), 1), GuessWithMatches(Guess("Herbert"), 3)),
+            guesses = listOf(GuessWithMatches(Guess("Frank"), 0), GuessWithMatches(Guess("Herbert"), 3)),
             onGuess = {}
         )
     }
