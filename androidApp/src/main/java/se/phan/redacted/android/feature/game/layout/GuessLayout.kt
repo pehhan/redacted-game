@@ -17,7 +17,7 @@ import se.phan.redacted.Guess
 import se.phan.redacted.GuessWithMatches
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 
-private val GuessesLayoutMaxHeight = 95.dp
+private val GuessesLayoutMaxHeight = 75.dp
 private val DividerThickness = 2.dp
 
 @Composable
