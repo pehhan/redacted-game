@@ -63,7 +63,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase().trim()), 2))
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
