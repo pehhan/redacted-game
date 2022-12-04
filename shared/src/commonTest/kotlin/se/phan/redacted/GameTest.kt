@@ -39,7 +39,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess, 2))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
@@ -63,7 +63,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess, 2))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
@@ -98,7 +98,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess, 0))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 0))
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
@@ -125,7 +125,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess, 0))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 0))
 
         expect(gameWithGuesses.guesses).toEqual(expectedGuesses)
         expect(gameWithGuesses.text).toEqual(expectedText)
@@ -151,7 +151,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess, 2))
+        val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
@@ -178,7 +178,10 @@ class GameTest {
             )
         )
 
-        val expectedGuesses = listOf(GuessWithMatches(guess1, 2), GuessWithMatches(guess2, 2))
+        val expectedGuesses = listOf(
+            GuessWithMatches(Guess(guess1.value.lowercase()), 2),
+            GuessWithMatches(Guess(guess2.value.lowercase()), 2)
+        )
 
         expect(gameWithGuess.guesses).toEqual(expectedGuesses)
         expect(gameWithGuess.text).toEqual(expectedText)
@@ -204,7 +207,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses1 = listOf(GuessWithMatches(guess1, 1))
+        val expectedGuesses1 = listOf(GuessWithMatches(Guess(guess1.value.lowercase()), 1))
 
         expect(gameAfterFirstGuess.guesses).toEqual(expectedGuesses1)
         expect(gameAfterFirstGuess.text).toEqual(text)
@@ -230,7 +233,10 @@ class GameTest {
             )
         )
 
-        val expectedGuesses2 = listOf(GuessWithMatches(guess1, 1), GuessWithMatches(guess2, 1))
+        val expectedGuesses2 = listOf(
+            GuessWithMatches(Guess(guess1.value.lowercase()), 1),
+            GuessWithMatches(Guess(guess2.value.lowercase()), 1)
+        )
 
         expect(gameAfterSecondGuess.guesses).toEqual(expectedGuesses2)
         expect(gameAfterSecondGuess.text).toEqual(expectedTextAfterSecondGuess)
@@ -265,7 +271,7 @@ class GameTest {
             )
         )
 
-        val expectedGuesses1 = listOf(GuessWithMatches(guess1, 1))
+        val expectedGuesses1 = listOf(GuessWithMatches(Guess(guess1.value.lowercase()), 1))
 
         expect(gameAfterFirstGuess.guesses).toEqual(expectedGuesses1)
         expect(gameAfterFirstGuess.text).toEqual(expectedTextAfterFirstGuess)
@@ -298,7 +304,10 @@ class GameTest {
             )
         )
 
-        val expectedGuesses2 = listOf(GuessWithMatches(guess1, 1), GuessWithMatches(guess2, 2))
+        val expectedGuesses2 = listOf(
+            GuessWithMatches(Guess(guess1.value.lowercase()), 1),
+            GuessWithMatches(Guess(guess2.value.lowercase()), 2)
+        )
 
         expect(gameAfterSecondGuess.guesses).toEqual(expectedGuesses2)
         expect(gameAfterSecondGuess.text).toEqual(expectedTextAfterSecondGuess)

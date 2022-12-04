@@ -37,7 +37,7 @@ data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatc
     }
 
     private fun guessesWithNewGuess(guess: Guess, matches: Int): List<GuessWithMatches> {
-        val guessWithMatches = GuessWithMatches(guess, matches)
+        val guessWithMatches = GuessWithMatches(Guess(guess.value.lowercase()), matches)
 
         return if (alreadyGuessed(guessWithMatches)) {
             guesses

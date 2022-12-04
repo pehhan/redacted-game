@@ -11,9 +11,9 @@ import se.phan.redacted.renderer.TextRenderer
 
 class GameViewModel(private var game: Game, private val renderer: TextRenderer) : ViewModel() {
 
-    private val _title = MutableStateFlow(renderer.render(game.title))
-    private val _text = MutableStateFlow(renderer.render(game.text))
-    private val _guesses = MutableStateFlow(game.guesses)
+    private val _title = MutableStateFlow(title())
+    private val _text = MutableStateFlow(text())
+    private val _guesses = MutableStateFlow(guesses())
 
     val title: StateFlow<String> = _title.asStateFlow()
     val text: StateFlow<String> = _text.asStateFlow()
@@ -22,8 +22,20 @@ class GameViewModel(private var game: Game, private val renderer: TextRenderer) 
     fun onGuess(guess: String) {
         game = game.makeGuess(Guess(guess))
 
-        _title.value = renderer.render(game.title)
-        _text.value = renderer.render(game.text)
-        _guesses.value = game.guesses
+        _title.value = title()
+        _text.value = text()
+        _guesses.value = guesses()
+    }
+
+    private fun title(): String {
+        return renderer.render(game.title)
+    }
+
+    private fun text(): String {
+        return renderer.render(game.text)
+    }
+
+    private fun guesses(): List<GuessWithMatches> {
+        return game.guesses
     }
 }
