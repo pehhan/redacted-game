@@ -2,7 +2,7 @@ package se.phan.redacted
 
 import se.phan.redacted.text.Text
 
-data class Game(val title: Text, val text: Text, val guesses: List<Guess>) {
+data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatches>) {
 
     constructor(title: Text, text: Text) : this(title, text, emptyList())
 
@@ -12,40 +12,48 @@ data class Game(val title: Text, val text: Text, val guesses: List<Guess>) {
 
     fun makeGuess(guess: Guess): Game {
         if (guess.value.isBlank()) return this
-        
-        val titleText = makeGuessForTitle(guess)
 
-        return if (titleText.areAllWordsUnredacted()) {
-            Game(titleText, text.unredactAll(), guessesWithNewGuess(guess))
-        } else {
-            makeGuessForText(guess, titleText)
+        return when (val titleResult = title.makeGuess(guess)) {
+            is WordUnredacted -> {
+                if (titleResult.text.areAllWordsUnredacted()) {
+                    val textMatches = matchesInTextForGuess(guess)
+                    Game(titleResult.text, text.unredactAll(), guessesWithNewGuess(guess, textMatches + titleResult.matches))
+                } else {
+                    makeGuessForText(guess, titleResult.text, titleResult.matches)
+                }
+            }
+            is WordAlreadyUnredacted, is WordNotInText -> {
+                makeGuessForText(guess, title, 0)
+            }
         }
     }
 
-    private fun makeGuessForTitle(guess: Guess): Text {
-        return when (val result = title.makeGuess(guess)) {
-            is WordUnredacted -> result.text
-            is WordAlreadyUnredacted, is WordNotInText -> title
-        }
-    }
-
-    private fun makeGuessForText(guess: Guess, title: Text): Game {
+    private fun makeGuessForText(guess: Guess, title: Text, titleMatches: Int): Game {
         return when (val result = text.makeGuess(guess)) {
-            is WordUnredacted -> Game(title, result.text, guessesWithNewGuess(guess))
+            is WordUnredacted -> Game(title, result.text, guessesWithNewGuess(guess, result.matches + titleMatches))
             is WordAlreadyUnredacted -> this
-            is WordNotInText -> Game(title, text, guessesWithNewGuess(guess))
+            is WordNotInText -> Game(title, text, guessesWithNewGuess(guess, titleMatches))
         }
     }
 
-    private fun guessesWithNewGuess(guess: Guess): List<Guess> {
-        return if (alreadyGuessed(guess)) {
+    private fun guessesWithNewGuess(guess: Guess, matches: Int): List<GuessWithMatches> {
+        val guessWithMatches = GuessWithMatches(guess, matches)
+
+        return if (alreadyGuessed(guessWithMatches)) {
             guesses
         } else {
-            guesses + guess
+            guesses + guessWithMatches
         }
     }
 
-    private fun alreadyGuessed(guess: Guess): Boolean {
-        return guess in guesses
+    private fun alreadyGuessed(guessWithMatches: GuessWithMatches): Boolean {
+        return guessWithMatches in guesses
+    }
+
+    private fun matchesInTextForGuess(guess: Guess): Int {
+        return when (val result = text.makeGuess(guess)) {
+            is WordUnredacted -> result.matches
+            is WordAlreadyUnredacted, is WordNotInText -> 0
+        }
     }
 }

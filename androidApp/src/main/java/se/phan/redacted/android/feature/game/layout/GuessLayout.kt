@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import se.phan.redacted.Guess
+import se.phan.redacted.GuessWithMatches
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 
 private val GuessesLayoutMaxHeight = 95.dp
@@ -22,7 +23,7 @@ private val DividerThickness = 2.dp
 @Composable
 fun GuessLayout(
     modifier: Modifier = Modifier,
-    guesses: List<Guess>,
+    guesses: List<GuessWithMatches>,
     onGuess: (String) -> Unit
 ) {
     Column(modifier = modifier.background(MaterialTheme.colors.primary)) {
@@ -52,7 +53,7 @@ fun GuessLayout(
 private fun GuessLayoutPreview() {
     ApplicationTheme {
         GuessLayout(
-            guesses = listOf(Guess("Frank"), Guess("Herbert")),
+            guesses = listOf(GuessWithMatches(Guess("Frank"), 1), GuessWithMatches(Guess("Herbert"), 3)),
             onGuess = {}
         )
     }
