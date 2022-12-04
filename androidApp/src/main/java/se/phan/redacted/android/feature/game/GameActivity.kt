@@ -13,11 +13,11 @@ class GameActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val game = createDummyGame()
-        val gameViewModel = GameViewModel(game)
         val renderer: TextRenderer = TrueWordLengthPunctuationVisibleRenderer()
+        val gameViewModel = GameViewModel(game, renderer)
 
         setContent {
-            GameLayout(gameViewModel, renderer, gameViewModel::onGuess)
+            GameLayout(gameViewModel, gameViewModel::onGuess)
         }
     }
 }

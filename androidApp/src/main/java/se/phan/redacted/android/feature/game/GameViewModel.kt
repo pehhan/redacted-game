@@ -6,15 +6,24 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import se.phan.redacted.Game
 import se.phan.redacted.Guess
+import se.phan.redacted.GuessWithMatches
+import se.phan.redacted.renderer.TextRenderer
 
-class GameViewModel(game: Game) : ViewModel() {
+class GameViewModel(private var game: Game, private val renderer: TextRenderer) : ViewModel() {
 
-    private val _state = MutableStateFlow(game)
+    private val _title = MutableStateFlow(renderer.render(game.title))
+    private val _text = MutableStateFlow(renderer.render(game.text))
+    private val _guesses = MutableStateFlow(game.guesses)
 
-    val state: StateFlow<Game> = _state.asStateFlow()
+    val title: StateFlow<String> = _title.asStateFlow()
+    val text: StateFlow<String> = _text.asStateFlow()
+    val guesses: StateFlow<List<GuessWithMatches>> = _guesses.asStateFlow()
 
     fun onGuess(guess: String) {
-        val newGame = state.value.makeGuess(Guess(guess))
-        _state.value = newGame
+        game = game.makeGuess(Guess(guess))
+
+        _title.value = renderer.render(game.title)
+        _text.value = renderer.render(game.text)
+        _guesses.value = game.guesses
     }
 }

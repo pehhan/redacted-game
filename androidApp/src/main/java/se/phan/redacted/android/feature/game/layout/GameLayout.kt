@@ -28,16 +28,16 @@ import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.android.ui.theme.HorizontalPadding
 import se.phan.redacted.android.ui.theme.VerticalPadding
-import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 
 @Composable
 fun GameLayout(
     gameViewModel: GameViewModel,
-    renderer: TextRenderer,
     onGuess: (String) -> Unit
 ) {
-    val state by gameViewModel.state.collectAsState()
+    val title by gameViewModel.title.collectAsState()
+    val text by gameViewModel.text.collectAsState()
+    val guesses by gameViewModel.guesses.collectAsState()
 
     val localDensity = LocalDensity.current
 
@@ -59,8 +59,8 @@ fun GameLayout(
                         ),
                     verticalArrangement = Arrangement.spacedBy(VerticalPadding)
                 ) {
-                    GameTitle(renderer.render(state.title))
-                    GameText(renderer.render(state.text))
+                    GameTitle(title)
+                    GameText(text)
                 }
                 GuessLayout(
                     modifier = Modifier
@@ -69,7 +69,7 @@ fun GameLayout(
                         .onGloballyPositioned { coordinates ->
                             guessLayoutHeight = with(localDensity) { coordinates.size.height.toDp() }
                         },
-                    guesses = state.guesses,
+                    guesses = guesses,
                     onGuess = { guess ->
                         onGuess(guess)
                     }
@@ -100,8 +100,8 @@ private fun GameText(text: String) {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun GameLayoutPreview() {
-    val gameViewModel = GameViewModel(createDummyGame())
     val renderer = TrueWordLengthPunctuationVisibleRenderer()
+    val gameViewModel = GameViewModel(createDummyGame(), renderer)
 
-    GameLayout(gameViewModel, renderer) {}
+    GameLayout(gameViewModel) {}
 }

@@ -15,7 +15,6 @@ private val HorizontalPaddingBetweenChips = 8.dp
 private val VerticalPaddingBetweenChips = 0.dp
 
 // TODO: Style
-// TODO: Show # of matches
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GuessesLayout(modifier: Modifier = Modifier, guesses: List<GuessWithMatches>) {
