@@ -13,13 +13,19 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -27,24 +33,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import se.phan.redacted.android.R
+import se.phan.redacted.android.ui.component.Keyboard
+import se.phan.redacted.android.ui.component.keyboardState
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 
 private val FontSize = 24.sp
 private val PlaceholderColor = Color(0xAAFFFFFF)
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun GuessTextField(modifier: Modifier = Modifier, onGuess: (String) -> Unit) {
 
     var text by remember { mutableStateOf("") }
 
+    val focusRequester = FocusRequester()
+
+    val keyboardState by keyboardState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     val toggleKeyboardIcon = @Composable {
         IconButton(
             onClick = {
-                // TODO: Minimize keyboard
+                if (keyboardState == Keyboard.Opened) {
+                    keyboardController?.hide()
+                } else {
+                    keyboardController?.show()
+                }
             },
         ) {
             Icon(
-                Icons.Default.KeyboardArrowDown,
+                imageVector = if (keyboardState == Keyboard.Opened) {
+                    Icons.Default.KeyboardArrowDown
+                } else {
+                    Icons.Default.KeyboardArrowUp
+                },
                 contentDescription = "",
                 tint = MaterialTheme.colors.onPrimary
             )
@@ -56,7 +78,7 @@ fun GuessTextField(modifier: Modifier = Modifier, onGuess: (String) -> Unit) {
         onValueChange = { newText ->
             text = newText
         },
-        modifier = modifier,
+        modifier = modifier.focusRequester(focusRequester),
         textStyle = TextStyle(fontSize = FontSize),
         placeholder = {
             Text(
@@ -76,6 +98,10 @@ fun GuessTextField(modifier: Modifier = Modifier, onGuess: (String) -> Unit) {
         shape = RoundedCornerShape(0.dp),
         colors = guessTextFieldColors()
     )
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
 }
 
 @Composable
