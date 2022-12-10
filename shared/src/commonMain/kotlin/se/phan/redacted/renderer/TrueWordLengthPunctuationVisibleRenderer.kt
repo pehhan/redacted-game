@@ -1,17 +1,26 @@
 package se.phan.redacted.renderer
 
-import se.phan.redacted.text.*
+import se.phan.redacted.text.Newline
+import se.phan.redacted.text.Punctuation
+import se.phan.redacted.text.Space
+import se.phan.redacted.text.Text
+import se.phan.redacted.text.TextPart
+import se.phan.redacted.text.Word
 
 class TrueWordLengthPunctuationVisibleRenderer : TextRenderer {
 
     override fun render(text: Text): String {
         return text.parts.fold("") { result, part ->
-            when (part) {
-                is Word -> result + renderWord(part)
-                is Punctuation -> result + renderPunctuation(part)
-                is Space -> result + renderSpace()
-                is Newline -> result + renderNewline()
-            }
+            result + render(part)
+        }
+    }
+
+    override fun render(textPart: TextPart): String {
+        return when (textPart) {
+            is Word -> renderWord(textPart)
+            is Punctuation -> renderPunctuation(textPart).toString()
+            is Space -> renderSpace()
+            is Newline -> renderNewline()
         }
     }
 

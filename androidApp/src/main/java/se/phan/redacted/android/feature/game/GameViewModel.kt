@@ -7,16 +7,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import se.phan.redacted.Game
 import se.phan.redacted.Guess
 import se.phan.redacted.GuessWithMatches
-import se.phan.redacted.renderer.TextRenderer
+import se.phan.redacted.text.Text
 
-class GameViewModel(private var game: Game, private val renderer: TextRenderer) : ViewModel() {
+class GameViewModel(private var game: Game) : ViewModel() {
 
     private val _title = MutableStateFlow(title())
     private val _text = MutableStateFlow(text())
     private val _guesses = MutableStateFlow(guesses())
 
-    val title: StateFlow<String> = _title.asStateFlow()
-    val text: StateFlow<String> = _text.asStateFlow()
+    val title: StateFlow<Text> = _title.asStateFlow()
+    val text: StateFlow<Text> = _text.asStateFlow()
     val guesses: StateFlow<List<GuessWithMatches>> = _guesses.asStateFlow()
 
     fun onGuess(guess: String) {
@@ -27,12 +27,12 @@ class GameViewModel(private var game: Game, private val renderer: TextRenderer) 
         _guesses.value = guesses()
     }
 
-    private fun title(): String {
-        return renderer.render(game.title)
+    private fun title(): Text {
+        return game.title
     }
 
-    private fun text(): String {
-        return renderer.render(game.text)
+    private fun text(): Text {
+        return game.text
     }
 
     private fun guesses(): List<GuessWithMatches> {

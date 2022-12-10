@@ -14,10 +14,10 @@ class GameActivity : ComponentActivity() {
 
         val game = createDummyGame()
         val renderer: TextRenderer = TrueWordLengthPunctuationVisibleRenderer()
-        val gameViewModel = GameViewModel(game, renderer)
+        val gameViewModel = GameViewModel(game)
 
         setContent {
-            GameLayout(gameViewModel, gameViewModel::onGuess)
+            GameLayout(gameViewModel, renderer, gameViewModel::onGuess)
         }
     }
 }

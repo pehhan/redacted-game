@@ -1,6 +1,10 @@
 package se.phan.redacted.text
 
-import se.phan.redacted.*
+import se.phan.redacted.Guess
+import se.phan.redacted.GuessResult
+import se.phan.redacted.WordAlreadyUnredacted
+import se.phan.redacted.WordNotInText
+import se.phan.redacted.WordUnredacted
 
 data class Text(val parts: List<TextPart>) {
 
@@ -31,7 +35,8 @@ data class Text(val parts: List<TextPart>) {
 
     fun unredactWords(words: List<Word>): Text {
         return unredactText { word ->
-            word in words
+            // TODO: Tests on this
+            words.any { it.matches(word) }
         }
     }
 

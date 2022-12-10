@@ -9,4 +9,9 @@ data class Word(val value: String, val redacted: Boolean) : TextPart() {
     fun matches(guess: Guess): Boolean {
         return value.uppercase() == guess.value.trim().uppercase()
     }
+
+    fun matches(word: Word): Boolean {
+        // TODO: write tests for this
+        return value.uppercase() == word.value.uppercase()
+    }
 }
