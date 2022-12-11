@@ -30,6 +30,10 @@ class GameViewModel(private var game: Game) : ViewModel() {
         _latestGuess.value = latestGuess()
     }
 
+    fun onGuessClick(guess: Guess) {
+        // TODO: Implement
+    }
+
     private fun title(): Text {
         return game.title
     }

@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import se.phan.redacted.Guess
 import se.phan.redacted.android.feature.game.GameViewModel
 import se.phan.redacted.android.feature.game.createDummyGame
 import se.phan.redacted.android.ui.component.Background
@@ -34,7 +35,8 @@ import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 fun GameLayout(
     gameViewModel: GameViewModel,
     renderer: TextRenderer,
-    onGuess: (String) -> Unit
+    onGuess: (String) -> Unit,
+    onGuessClick: (Guess) -> Unit
 ) {
     val title by gameViewModel.title.collectAsState()
     val text by gameViewModel.text.collectAsState()
@@ -83,6 +85,9 @@ fun GameLayout(
                     guesses = guesses,
                     onGuess = { guess ->
                         onGuess(guess)
+                    },
+                    onGuessClick = { guess ->
+                        onGuessClick(guess)
                     }
                 )
             }
@@ -97,5 +102,5 @@ private fun GameLayoutPreview() {
     val renderer = TrueWordLengthPunctuationVisibleRenderer()
     val gameViewModel = GameViewModel(createDummyGame())
 
-    GameLayout(gameViewModel, renderer) {}
+    GameLayout(gameViewModel, renderer, {}, {})
 }

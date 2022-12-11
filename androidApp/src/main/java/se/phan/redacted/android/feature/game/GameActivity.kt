@@ -17,7 +17,7 @@ class GameActivity : ComponentActivity() {
         val gameViewModel = GameViewModel(game)
 
         setContent {
-            GameLayout(gameViewModel, renderer, gameViewModel::onGuess)
+            GameLayout(gameViewModel, renderer, gameViewModel::onGuess, gameViewModel::onGuessClick)
         }
     }
 }

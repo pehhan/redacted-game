@@ -27,7 +27,8 @@ private val DividerThickness = 2.dp
 fun GuessLayout(
     modifier: Modifier = Modifier,
     guesses: List<GuessWithMatches>,
-    onGuess: (String) -> Unit
+    onGuess: (String) -> Unit,
+    onGuessClick: (Guess) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -41,7 +42,8 @@ fun GuessLayout(
             modifier = Modifier
                 .heightIn(max = GuessesLayoutMaxHeight)
                 .verticalScroll(stateVertical),
-            guesses = guesses
+            guesses = guesses,
+            onGuessClick = onGuessClick
         )
         Divider(
             thickness = DividerThickness,
@@ -61,7 +63,8 @@ private fun GuessLayoutPreview() {
     ApplicationTheme {
         GuessLayout(
             guesses = listOf(GuessWithMatches(Guess("Frank"), 0), GuessWithMatches(Guess("Herbert"), 3)),
-            onGuess = {}
+            onGuess = {},
+            onGuessClick = {}
         )
     }
 }

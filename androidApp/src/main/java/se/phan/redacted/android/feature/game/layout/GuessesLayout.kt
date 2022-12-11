@@ -24,7 +24,11 @@ private val VerticalPaddingBetweenChips = 0.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GuessesLayout(modifier: Modifier = Modifier, guesses: List<GuessWithMatches>) {
+fun GuessesLayout(
+    modifier: Modifier = Modifier,
+    guesses: List<GuessWithMatches>,
+    onGuessClick: (Guess) -> Unit
+) {
     FlowRow(
         modifier = modifier
             .padding(horizontal = HorizontalPadding),
@@ -37,7 +41,7 @@ fun GuessesLayout(modifier: Modifier = Modifier, guesses: List<GuessWithMatches>
                     backgroundColor = MaterialTheme.colors.background
                 ),
                 onClick = {
-                    // TODO: Jump to first/next occurrence
+                    onGuessClick(guessWithMatch.guess)
                 }
             ) {
                 Text(
@@ -60,6 +64,7 @@ private fun GuessesLayoutPreview() {
     ApplicationTheme {
         GuessesLayout(
             guesses = listOf(GuessWithMatches(Guess("Frank"), 0), GuessWithMatches(Guess("Herbert"), 3)),
+            onGuessClick = {}
         )
     }
 }
