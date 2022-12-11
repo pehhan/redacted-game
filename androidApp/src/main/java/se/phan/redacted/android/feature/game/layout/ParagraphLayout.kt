@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.flowlayout.FlowRow
 import se.phan.redacted.android.feature.game.createDummyGame
+import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.android.ui.theme.HorizontalPadding
 import se.phan.redacted.renderer.TextRenderer
@@ -63,10 +64,12 @@ private fun ParagraphLayoutPreview() {
     val renderer = TrueWordLengthPunctuationVisibleRenderer()
 
     ApplicationTheme {
-        ParagraphLayout(
-            textParts = createDummyGame().text.parts,
-            renderer = renderer,
-            fontSize = 18.sp
-        )
+        Background {
+            ParagraphLayout(
+                textParts = createDummyGame().text.parts,
+                renderer = renderer,
+                fontSize = 18.sp
+            )
+        }
     }
 }

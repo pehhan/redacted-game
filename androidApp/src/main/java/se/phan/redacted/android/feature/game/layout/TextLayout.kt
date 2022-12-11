@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import se.phan.redacted.android.feature.game.createDummyGame
+import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.layout.TextLayoutRepresentation
 import se.phan.redacted.layout.toLayoutRepresentation
@@ -52,10 +53,12 @@ private fun TextLayoutPreview() {
     val renderer = TrueWordLengthPunctuationVisibleRenderer()
 
     ApplicationTheme {
-        TextLayout(
-            text = createDummyGame().text,
-            renderer = renderer,
-            fontSize = 18.sp
-        )
+        Background {
+            TextLayout(
+                text = createDummyGame().text,
+                renderer = renderer,
+                fontSize = 18.sp
+            )
+        }
     }
 }
