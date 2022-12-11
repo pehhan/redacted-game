@@ -71,4 +71,69 @@ class WordTest {
     fun `guess in a mix of characters in uppercase and integers matches word`() {
         expect(Word("20th").matches(Guess("20TH"))).toEqual(true)
     }
+
+    @Test
+    fun `word matches word`() {
+        expect(Word("Atreides").matches(Word("Atreides"))).toEqual(true)
+    }
+
+    @Test
+    fun `other word does not match word`() {
+        expect(Word("Atreides").matches(Word("Paul"))).toEqual(false)
+    }
+
+    @Test
+    fun `word in lowercase matches uppercase word`() {
+        expect(Word("ATREIDES").matches(Word("atreides"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in uppercase matches lowercase word`() {
+        expect(Word("atreides").matches(Word("ATREIDES"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in mixed case matches uppercase word`() {
+        expect(Word("ATREIDES").matches(Word("AtreiDes"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in mixed case matches lowercase word`() {
+        expect(Word("atreides").matches(Word("AtreiDes"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in lowercase matches mixed case word`() {
+        expect(Word("AtreiDes").matches(Word("atreides"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in uppercase matches mixed case word`() {
+        expect(Word("AtreiDes").matches(Word("ATREIDES"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in mixed case matches different mixed case word`() {
+        expect(Word("ATreidES").matches(Word("AtreiDes"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in integers matches word`() {
+        expect(Word("1965").matches(Word("1965"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in a mix of characters and integers matches word`() {
+        expect(Word("20th").matches(Word("20th"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in a mix of characters in lowercase and integers matches word`() {
+        expect(Word("20TH").matches(Word("20th"))).toEqual(true)
+    }
+
+    @Test
+    fun `word in a mix of characters in uppercase and integers matches word`() {
+        expect(Word("20th").matches(Word("20TH"))).toEqual(true)
+    }
 }
