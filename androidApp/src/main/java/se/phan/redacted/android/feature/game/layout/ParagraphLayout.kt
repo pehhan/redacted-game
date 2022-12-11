@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.flowlayout.FlowRow
+import se.phan.redacted.Guess
 import se.phan.redacted.android.feature.game.createDummyGame
 import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
@@ -27,7 +28,7 @@ import se.phan.redacted.text.Word
 @Composable
 fun ParagraphLayout(
     textParts: List<TextPart>,
-    latestGuessedWord: Word?,
+    latestGuess: Guess?,
     renderer: TextRenderer,
     fontSize: TextUnit,
     modifier: Modifier = Modifier
@@ -43,7 +44,7 @@ fun ParagraphLayout(
                 is Word -> {
                     WordLayout(
                         word = textPart,
-                        latestGuessedWord = latestGuessedWord,
+                        latestGuess = latestGuess,
                         renderer = renderer,
                         fontSize = fontSize,
                     )
@@ -75,7 +76,7 @@ private fun ParagraphLayoutPreview() {
         Background {
             ParagraphLayout(
                 textParts = createDummyGame().text.parts,
-                latestGuessedWord = Word("and", redacted = false),
+                latestGuess = Guess("and"),
                 renderer = renderer,
                 fontSize = 18.sp
             )

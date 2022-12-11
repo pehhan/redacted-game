@@ -39,7 +39,7 @@ fun GameLayout(
     val title by gameViewModel.title.collectAsState()
     val text by gameViewModel.text.collectAsState()
     val guesses by gameViewModel.guesses.collectAsState()
-    val latestGuessedWord by gameViewModel.latestGuessedWord.collectAsState()
+    val latestGuess by gameViewModel.latestGuess.collectAsState()
 
     val localDensity = LocalDensity.current
 
@@ -63,13 +63,13 @@ fun GameLayout(
                 ) {
                     TextLayout(
                         title,
-                        latestGuessedWord,
+                        latestGuess,
                         renderer,
                         fontSize = 28.sp
                     )
                     TextLayout(
                         text,
-                        latestGuessedWord,
+                        latestGuess,
                         renderer,
                         fontSize = 18.sp)
                 }

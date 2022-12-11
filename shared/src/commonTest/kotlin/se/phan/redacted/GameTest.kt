@@ -316,19 +316,21 @@ class GameTest {
     }
 
     @Test
-    fun `the latest guessed word returned is the last guess`() {
+    fun `the latest guess returned is the last guess`() {
         val text = TextParser.parse("Paul Atreides")
         val game = Game(text, text)
 
-        expect(game.latestGuessedWord).toEqual(null)
+        expect(game.latestGuess).toEqual(null)
 
-        val gameAfterFirstCorrectGuess = game.makeGuess(Guess("atreides"))
+        val firstGuess = Guess("atreides")
+        val gameAfterFirstCorrectGuess = game.makeGuess(firstGuess)
 
-        expect(gameAfterFirstCorrectGuess.latestGuessedWord).toEqual(Word("atreides", redacted = false))
+        expect(gameAfterFirstCorrectGuess.latestGuess).toEqual(firstGuess)
 
-        val gameAfterSecondCorrectGuess = game.makeGuess(Guess("Paul"))
+        val secondGuess = Guess("Paul")
+        val gameAfterSecondCorrectGuess = game.makeGuess(secondGuess)
 
-        expect(gameAfterSecondCorrectGuess.latestGuessedWord).toEqual(Word("paul", redacted = false))
+        expect(gameAfterSecondCorrectGuess.latestGuess).toEqual(Guess("paul"))
     }
 
     @Test
@@ -336,10 +338,11 @@ class GameTest {
         val text = TextParser.parse("Paul Atreides")
         val game = Game(text, text)
 
-        expect(game.latestGuessedWord).toEqual(null)
+        expect(game.latestGuess).toEqual(null)
 
-        val gameAfterIncorrectGuess = game.makeGuess(Guess("Dune"))
+        val guess = Guess("Dune")
+        val gameAfterIncorrectGuess = game.makeGuess(guess)
 
-        expect(gameAfterIncorrectGuess.latestGuessedWord).toEqual(Word("dune", redacted = false))
+        expect(gameAfterIncorrectGuess.latestGuess).toEqual(Guess("dune"))
     }
 }

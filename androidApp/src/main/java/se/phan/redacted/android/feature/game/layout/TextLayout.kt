@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import se.phan.redacted.Guess
 import se.phan.redacted.android.feature.game.createDummyGame
 import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
@@ -25,7 +26,7 @@ private val VerticalPaddingBetweenParagraphs = 8.dp
 @Composable
 fun TextLayout(
     text: Text,
-    latestGuessedWord: Word?,
+    latestGuess: Guess?,
     renderer: TextRenderer,
     fontSize: TextUnit,
     modifier: Modifier = Modifier
@@ -36,7 +37,7 @@ fun TextLayout(
                 is TextLayoutRepresentation.Paragraph -> {
                     ParagraphLayout(
                         representation.parts,
-                        latestGuessedWord,
+                        latestGuess,
                         renderer,
                         fontSize
                     )
@@ -59,7 +60,7 @@ private fun TextLayoutPreview() {
         Background {
             TextLayout(
                 text = createDummyGame().text,
-                latestGuessedWord = Word("and", redacted = false),
+                latestGuess = Guess("and"),
                 renderer = renderer,
                 fontSize = 18.sp
             )

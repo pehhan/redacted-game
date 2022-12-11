@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
+import se.phan.redacted.Guess
 import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.renderer.TextRenderer
@@ -17,12 +18,12 @@ import se.phan.redacted.text.Word
 @Composable
 fun WordLayout(
     word: Word,
-    latestGuessedWord: Word?,
+    latestGuess: Guess?,
     renderer: TextRenderer,
     modifier: Modifier = Modifier,
     fontSize: TextUnit
 ) {
-    val color = if (latestGuessedWord != null && word.matches(latestGuessedWord)) {
+    val color = if (latestGuess != null && word.matches(latestGuess)) {
         MaterialTheme.colors.primary
     } else {
         MaterialTheme.colors.onBackground
@@ -46,7 +47,7 @@ private fun WordLayoutPreview() {
         Background {
             WordLayout(
                 word = Word("Dune", redacted = false),
-                latestGuessedWord = null,
+                latestGuess = null,
                 renderer = renderer,
                 fontSize = 18.sp
             )
