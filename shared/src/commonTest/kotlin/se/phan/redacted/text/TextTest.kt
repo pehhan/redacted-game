@@ -198,6 +198,58 @@ class TextTest {
     }
 
     @Test
+    fun `unredactWords unredacts all matching words in text`() {
+        val parts = listOf(
+            Word("Dune"),
+            Space,
+            Word("is"),
+            Space,
+            Word("a"),
+            Space,
+            Word("book"),
+            Punctuation('.'),
+            Space,
+            Word("It"),
+            Space,
+            Word("is"),
+            Space,
+            Word("good"),
+            Punctuation('.')
+        )
+        val text = Text(parts)
+
+        val wordsToReveal = listOf(
+            Word("a"),
+            Word("is"),
+            Word("it")
+        )
+
+        val unredactedText = text.unredactWords(wordsToReveal)
+
+        val expectedText = Text(
+            listOf(
+                Word("Dune"),
+                Space,
+                Word("is", redacted = false),
+                Space,
+                Word("a", redacted = false),
+                Space,
+                Word("book"),
+                Punctuation('.'),
+                Space,
+                Word("It", redacted = false),
+                Space,
+                Word("is", redacted = false),
+                Space,
+                Word("good"),
+                Punctuation('.')
+            )
+        )
+
+        expect(unredactedText).toEqual(expectedText)
+    }
+
+    @Test
     fun `should be able to unredact a list of words in the text`() {
         val parts = listOf(
             Word("Dune"),

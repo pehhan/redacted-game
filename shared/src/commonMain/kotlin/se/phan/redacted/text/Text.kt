@@ -35,7 +35,6 @@ data class Text(val parts: List<TextPart>) {
 
     fun unredactWords(words: List<Word>): Text {
         return unredactText { word ->
-            // TODO: Tests on this
             words.any { it.matches(word) }
         }
     }
