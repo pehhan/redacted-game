@@ -27,6 +27,7 @@ import se.phan.redacted.text.Word
 @Composable
 fun ParagraphLayout(
     textParts: List<TextPart>,
+    latestGuessedWord: Word?,
     renderer: TextRenderer,
     fontSize: TextUnit,
     modifier: Modifier = Modifier
@@ -39,11 +40,18 @@ fun ParagraphLayout(
     ) {
         for (textPart in textParts) {
             when (textPart) {
-                is Word, is Punctuation -> {
+                is Word -> {
+                    WordLayout(
+                        word = textPart,
+                        latestGuessedWord = latestGuessedWord,
+                        renderer = renderer,
+                        fontSize = fontSize,
+                    )
+                }
+                is Punctuation -> {
                     Text(
                         text = renderer.render(textPart),
-                        modifier = modifier,
-                        fontSize = fontSize,
+                        fontSize = fontSize
                     )
                 }
                 is Space -> {
@@ -67,6 +75,7 @@ private fun ParagraphLayoutPreview() {
         Background {
             ParagraphLayout(
                 textParts = createDummyGame().text.parts,
+                latestGuessedWord = Word("and", redacted = false),
                 renderer = renderer,
                 fontSize = 18.sp
             )

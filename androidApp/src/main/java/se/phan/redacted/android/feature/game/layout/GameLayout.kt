@@ -39,6 +39,7 @@ fun GameLayout(
     val title by gameViewModel.title.collectAsState()
     val text by gameViewModel.text.collectAsState()
     val guesses by gameViewModel.guesses.collectAsState()
+    val latestGuessedWord by gameViewModel.latestGuessedWord.collectAsState()
 
     val localDensity = LocalDensity.current
 
@@ -60,8 +61,17 @@ fun GameLayout(
                         ),
                     verticalArrangement = Arrangement.spacedBy(VerticalPadding)
                 ) {
-                    TextLayout(title, renderer, fontSize = 28.sp)
-                    TextLayout(text, renderer, fontSize = 18.sp)
+                    TextLayout(
+                        title,
+                        latestGuessedWord,
+                        renderer,
+                        fontSize = 28.sp
+                    )
+                    TextLayout(
+                        text,
+                        latestGuessedWord,
+                        renderer,
+                        fontSize = 18.sp)
                 }
                 GuessLayout(
                     modifier = Modifier

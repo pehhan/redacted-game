@@ -1,10 +1,21 @@
 package se.phan.redacted
 
 import se.phan.redacted.text.Text
+import se.phan.redacted.text.Word
 
 data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatches>) {
 
     constructor(title: Text, text: Text) : this(title, text, emptyList())
+
+    val latestGuessedWord: Word?
+        get() {
+            val guessValue = guesses.lastOrNull()?.guess?.value
+            return if (guessValue != null) {
+                Word(guessValue, redacted = false)
+            } else {
+                null
+            }
+        }
 
     fun isCompleted(): Boolean {
         return title.areAllWordsRevealed()
@@ -17,7 +28,11 @@ data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatc
             is WordRevealed -> {
                 if (titleResult.text.areAllWordsRevealed()) {
                     val textMatches = matchesInTextForGuess(guess)
-                    Game(titleResult.text, text.revealAll(), guessesWithNewGuess(guess, textMatches + titleResult.matches))
+                    Game(
+                        titleResult.text,
+                        text.revealAll(),
+                        guessesWithNewGuess(guess, textMatches + titleResult.matches)
+                    )
                 } else {
                     makeGuessForText(guess, titleResult.text, titleResult.matches)
                 }

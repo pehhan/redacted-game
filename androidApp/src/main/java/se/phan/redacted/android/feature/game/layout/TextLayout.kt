@@ -18,12 +18,14 @@ import se.phan.redacted.layout.toLayoutRepresentation
 import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 import se.phan.redacted.text.Text
+import se.phan.redacted.text.Word
 
 private val VerticalPaddingBetweenParagraphs = 8.dp
 
 @Composable
 fun TextLayout(
     text: Text,
+    latestGuessedWord: Word?,
     renderer: TextRenderer,
     fontSize: TextUnit,
     modifier: Modifier = Modifier
@@ -34,6 +36,7 @@ fun TextLayout(
                 is TextLayoutRepresentation.Paragraph -> {
                     ParagraphLayout(
                         representation.parts,
+                        latestGuessedWord,
                         renderer,
                         fontSize
                     )
@@ -56,6 +59,7 @@ private fun TextLayoutPreview() {
         Background {
             TextLayout(
                 text = createDummyGame().text,
+                latestGuessedWord = Word("and", redacted = false),
                 renderer = renderer,
                 fontSize = 18.sp
             )

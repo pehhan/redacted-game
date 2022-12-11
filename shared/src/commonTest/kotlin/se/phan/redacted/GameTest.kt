@@ -314,4 +314,32 @@ class GameTest {
         expect(gameAfterSecondGuess.title).toEqual(expectedTitleAfterSecondGuess)
         expect(gameAfterSecondGuess.isCompleted()).toEqual(true)
     }
+
+    @Test
+    fun `the latest guessed word returned is the last guess`() {
+        val text = TextParser.parse("Paul Atreides")
+        val game = Game(text, text)
+
+        expect(game.latestGuessedWord).toEqual(null)
+
+        val gameAfterFirstCorrectGuess = game.makeGuess(Guess("atreides"))
+
+        expect(gameAfterFirstCorrectGuess.latestGuessedWord).toEqual(Word("atreides", redacted = false))
+
+        val gameAfterSecondCorrectGuess = game.makeGuess(Guess("Paul"))
+
+        expect(gameAfterSecondCorrectGuess.latestGuessedWord).toEqual(Word("paul", redacted = false))
+    }
+
+    @Test
+    fun `the latest guessed word returned is the last guess even if not found`() {
+        val text = TextParser.parse("Paul Atreides")
+        val game = Game(text, text)
+
+        expect(game.latestGuessedWord).toEqual(null)
+
+        val gameAfterIncorrectGuess = game.makeGuess(Guess("Dune"))
+
+        expect(gameAfterIncorrectGuess.latestGuessedWord).toEqual(Word("dune", redacted = false))
+    }
 }
