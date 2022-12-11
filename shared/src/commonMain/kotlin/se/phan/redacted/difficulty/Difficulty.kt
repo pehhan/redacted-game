@@ -1,9 +1,9 @@
 package se.phan.redacted.difficulty
 
-import se.phan.redacted.difficulty.hard.HardDifficultyUnredactedWordsProvider
-import se.phan.redacted.difficulty.normal.NormalDifficultyUnredactedWordsProvider
+import se.phan.redacted.difficulty.hard.HardDifficultyRevealedWordsProvider
+import se.phan.redacted.difficulty.normal.NormalDifficultyRevealedWordsProvider
 
-enum class Difficulty(val unredactedWordsProvider: UnredactedWordsProvider) {
-    Normal(NormalDifficultyUnredactedWordsProvider()),
-    Hard(HardDifficultyUnredactedWordsProvider())
+enum class Difficulty(val revealedWordsProvider: RevealedWordsProvider) {
+    Normal(NormalDifficultyRevealedWordsProvider()),
+    Hard(HardDifficultyRevealedWordsProvider())
 }

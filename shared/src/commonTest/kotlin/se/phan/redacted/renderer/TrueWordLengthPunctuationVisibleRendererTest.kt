@@ -3,7 +3,7 @@ package se.phan.redacted.renderer
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.Guess
-import se.phan.redacted.WordUnredacted
+import se.phan.redacted.WordRevealed
 import se.phan.redacted.parser.TextParser
 import kotlin.test.Test
 import kotlin.test.fail
@@ -26,7 +26,7 @@ class TrueWordLengthPunctuationVisibleRendererTest {
 
         val result = text.makeGuess(Guess("Atreides"))
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             val renderedTextAfter = renderer.render(result.text)
             expect(renderedTextAfter).toEqual(expectedTextAfterGuess)
         } else {
@@ -81,7 +81,7 @@ class TrueWordLengthPunctuationVisibleRendererTest {
 
         val result = text.makeGuess(Guess("Dune"))
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             val renderedTextAfter = renderer.render(result.text)
             expect(renderedTextAfter).toEqual(expectedTextAfterGuess)
         } else {

@@ -4,9 +4,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBeTheInstance
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.Guess
-import se.phan.redacted.WordAlreadyUnredacted
+import se.phan.redacted.WordAlreadyRevealed
 import se.phan.redacted.WordNotInText
-import se.phan.redacted.WordUnredacted
+import se.phan.redacted.WordRevealed
 import se.phan.redacted.parser.TextParser
 import kotlin.test.Test
 import kotlin.test.fail
@@ -24,16 +24,16 @@ class TextTest {
     }
 
     @Test
-    fun `when guessing a word that was already unredacted - the result should be WordAlreadyUnredacted`() {
+    fun `when guessing a word that was already revealed - the result should be WordAlreadyRevealed`() {
         val str = "Paul Atreides"
         val text = TextParser.parse(str)
         val guess = Guess("Paul")
 
         val result = text.makeGuess(guess)
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             val secondResult = result.text.makeGuess(guess)
-            expect(secondResult).toBeTheInstance(WordAlreadyUnredacted)
+            expect(secondResult).toBeTheInstance(WordAlreadyRevealed)
         } else {
             fail()
         }
@@ -54,7 +54,7 @@ class TextTest {
             )
         )
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             expect(result.text).toEqual(expectedText)
             expect(result.matches).toEqual(1)
         } else {
@@ -83,7 +83,7 @@ class TextTest {
             )
         )
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             expect(result.text).toEqual(expectedText)
             expect(result.matches).toEqual(2)
         } else {
@@ -152,7 +152,7 @@ class TextTest {
     }
 
     @Test
-    fun `areAllWordsUnredacted returns true when all words in text are unredacted`() {
+    fun `areAllWordsRevealed returns true when all words in text are revealed`() {
         val parts = listOf(
             Word("Paul", redacted = false),
             Space,
@@ -160,11 +160,11 @@ class TextTest {
         )
         val text = Text(parts)
 
-        expect(text.areAllWordsUnredacted()).toEqual(true)
+        expect(text.areAllWordsRevealed()).toEqual(true)
     }
 
     @Test
-    fun `areAllWordsUnredacted returns false when some words in text is not unredacted`() {
+    fun `areAllWordsRevealed returns false when some words in text is not revealed`() {
         val parts = listOf(
             Word("Paul", redacted = false),
             Space,
@@ -172,11 +172,11 @@ class TextTest {
         )
         val text = Text(parts)
 
-        expect(text.areAllWordsUnredacted()).toEqual(false)
+        expect(text.areAllWordsRevealed()).toEqual(false)
     }
 
     @Test
-    fun `unredactAll unredacts all words in text`() {
+    fun `revealAll reveals all words in text`() {
         val parts = listOf(
             Word("Paul", redacted = true),
             Space,
@@ -184,7 +184,7 @@ class TextTest {
         )
         val text = Text(parts)
 
-        val unredactedText = text.unredactAll()
+        val revealedText = text.revealAll()
 
         val expectedText = Text(
             listOf(
@@ -194,11 +194,11 @@ class TextTest {
             )
         )
 
-        expect(unredactedText).toEqual(expectedText)
+        expect(revealedText).toEqual(expectedText)
     }
 
     @Test
-    fun `unredactWords unredacts all matching words in text`() {
+    fun `revealWords reveals all matching words in text`() {
         val parts = listOf(
             Word("Dune"),
             Space,
@@ -224,7 +224,7 @@ class TextTest {
             Word("it")
         )
 
-        val unredactedText = text.unredactWords(wordsToReveal)
+        val revealedText = text.revealWords(wordsToReveal)
 
         val expectedText = Text(
             listOf(
@@ -246,11 +246,11 @@ class TextTest {
             )
         )
 
-        expect(unredactedText).toEqual(expectedText)
+        expect(revealedText).toEqual(expectedText)
     }
 
     @Test
-    fun `should be able to unredact a list of words in the text`() {
+    fun `should be able to reveal a list of words in the text`() {
         val parts = listOf(
             Word("Dune"),
             Space,
@@ -263,7 +263,7 @@ class TextTest {
         )
         val text = Text(parts)
 
-        val unredactedText = text.unredactWords(listOf("is", "a").map { Word(it) })
+        val revealedText = text.revealWords(listOf("is", "a").map { Word(it) })
 
         val expectedText = Text(
             listOf(
@@ -278,7 +278,7 @@ class TextTest {
             )
         )
 
-        expect(unredactedText).toEqual(expectedText)
+        expect(revealedText).toEqual(expectedText)
     }
 
     private fun testDifferentCaps(wordInText: String, guess: String) {
@@ -295,7 +295,7 @@ class TextTest {
             )
         )
 
-        if (result is WordUnredacted) {
+        if (result is WordRevealed) {
             expect(result.text).toEqual(expectedText)
             expect(result.matches).toEqual(1)
         } else {

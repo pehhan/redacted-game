@@ -13,7 +13,7 @@ import kotlin.test.Test
 class GameCreatorTest {
 
     @Test
-    fun `game is created with text unredacted for normal difficulty`() {
+    fun `game is created with text revealed for normal difficulty`() {
         val title = TextParser.parse("Dune")
         val text = TextParser.parse("Arrakis is another name for Dune.")
 
@@ -40,7 +40,7 @@ class GameCreatorTest {
     }
 
     @Test
-    fun `game is created with no text unredacted for hard difficulty`() {
+    fun `game is created with no text revealed for hard difficulty`() {
         val title = TextParser.parse("Dune")
         val text = TextParser.parse("Arrakis is another name for Dune.")
 

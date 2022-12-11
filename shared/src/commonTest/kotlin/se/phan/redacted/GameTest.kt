@@ -24,7 +24,7 @@ class GameTest {
     }
 
     @Test
-    fun `when making a correct guess the word should be unredacted`() {
+    fun `when making a correct guess the word should be revealed`() {
         val text = TextParser.parse("Paul Atreides")
         val originalGame = Game(text, text)
         val guess = Guess("Paul")
@@ -48,7 +48,7 @@ class GameTest {
     }
 
     @Test
-    fun `when making a correct guess that has whitespace before and after the word should be unredacted`() {
+    fun `when making a correct guess that has whitespace before and after the word should be revealed`() {
         val text = TextParser.parse("Paul Atreides")
         val originalGame = Game(text, text)
         val guess = Guess(" Paul ")

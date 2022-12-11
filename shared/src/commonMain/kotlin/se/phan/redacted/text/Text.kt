@@ -2,9 +2,9 @@ package se.phan.redacted.text
 
 import se.phan.redacted.Guess
 import se.phan.redacted.GuessResult
-import se.phan.redacted.WordAlreadyUnredacted
+import se.phan.redacted.WordAlreadyRevealed
 import se.phan.redacted.WordNotInText
-import se.phan.redacted.WordUnredacted
+import se.phan.redacted.WordRevealed
 
 data class Text(val parts: List<TextPart>) {
 
@@ -17,37 +17,37 @@ data class Text(val parts: List<TextPart>) {
 
     private fun makeGuessForWordInText(guess: Guess): GuessResult {
         return if (isGuessRedacted(guess)) {
-            WordUnredacted(unredactText(guess), numberOfMatches(guess))
+            WordRevealed(revealText(guess), numberOfMatches(guess))
         } else {
-            WordAlreadyUnredacted
+            WordAlreadyRevealed
         }
     }
 
-    fun areAllWordsUnredacted(): Boolean {
+    fun areAllWordsRevealed(): Boolean {
         return parts
             .filterIsInstance<Word>()
             .all { !it.redacted }
     }
 
-    fun unredactAll(): Text {
-        return unredactText { true }
+    fun revealAll(): Text {
+        return revealText { true }
     }
 
-    fun unredactWords(words: List<Word>): Text {
-        return unredactText { word ->
+    fun revealWords(words: List<Word>): Text {
+        return revealText { word ->
             words.any { it.matches(word) }
         }
     }
 
-    private fun unredactText(guess: Guess): Text {
-        return unredactText { word ->
+    private fun revealText(guess: Guess): Text {
+        return revealText { word ->
             word.matches(guess)
         }
     }
 
-    private fun unredactText(shouldUnredactWord: (Word) -> Boolean): Text {
+    private fun revealText(shouldRevealWord: (Word) -> Boolean): Text {
         val parts = parts.map { part ->
-            if (part is Word && shouldUnredactWord(part)) {
+            if (part is Word && shouldRevealWord(part)) {
                 part.copy(redacted = false)
             } else {
                 part

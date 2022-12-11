@@ -2,6 +2,6 @@ package se.phan.redacted.difficulty
 
 import se.phan.redacted.text.Word
 
-interface UnredactedWordsProvider {
+interface RevealedWordsProvider {
     fun getWords(): List<Word>
 }

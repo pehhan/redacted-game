@@ -7,22 +7,22 @@ data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatc
     constructor(title: Text, text: Text) : this(title, text, emptyList())
 
     fun isCompleted(): Boolean {
-        return title.areAllWordsUnredacted()
+        return title.areAllWordsRevealed()
     }
 
     fun makeGuess(guess: Guess): Game {
         if (guess.value.isBlank()) return this
 
         return when (val titleResult = title.makeGuess(guess)) {
-            is WordUnredacted -> {
-                if (titleResult.text.areAllWordsUnredacted()) {
+            is WordRevealed -> {
+                if (titleResult.text.areAllWordsRevealed()) {
                     val textMatches = matchesInTextForGuess(guess)
-                    Game(titleResult.text, text.unredactAll(), guessesWithNewGuess(guess, textMatches + titleResult.matches))
+                    Game(titleResult.text, text.revealAll(), guessesWithNewGuess(guess, textMatches + titleResult.matches))
                 } else {
                     makeGuessForText(guess, titleResult.text, titleResult.matches)
                 }
             }
-            is WordAlreadyUnredacted, is WordNotInText -> {
+            is WordAlreadyRevealed, is WordNotInText -> {
                 makeGuessForText(guess, title, 0)
             }
         }
@@ -30,8 +30,8 @@ data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatc
 
     private fun makeGuessForText(guess: Guess, title: Text, titleMatches: Int): Game {
         return when (val result = text.makeGuess(guess)) {
-            is WordUnredacted -> Game(title, result.text, guessesWithNewGuess(guess, result.matches + titleMatches))
-            is WordAlreadyUnredacted -> this
+            is WordRevealed -> Game(title, result.text, guessesWithNewGuess(guess, result.matches + titleMatches))
+            is WordAlreadyRevealed -> this
             is WordNotInText -> Game(title, text, guessesWithNewGuess(guess, titleMatches))
         }
     }
@@ -52,8 +52,8 @@ data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatc
 
     private fun matchesInTextForGuess(guess: Guess): Int {
         return when (val result = text.makeGuess(guess)) {
-            is WordUnredacted -> result.matches
-            is WordAlreadyUnredacted, is WordNotInText -> 0
+            is WordRevealed -> result.matches
+            is WordAlreadyRevealed, is WordNotInText -> 0
         }
     }
 }

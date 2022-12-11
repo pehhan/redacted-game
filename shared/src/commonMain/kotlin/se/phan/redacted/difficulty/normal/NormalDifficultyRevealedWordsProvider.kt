@@ -1,9 +1,9 @@
 package se.phan.redacted.difficulty.normal
 
-import se.phan.redacted.difficulty.UnredactedWordsProvider
+import se.phan.redacted.difficulty.RevealedWordsProvider
 import se.phan.redacted.text.Word
 
-class NormalDifficultyUnredactedWordsProvider : UnredactedWordsProvider {
+class NormalDifficultyRevealedWordsProvider : RevealedWordsProvider {
 
     override fun getWords(): List<Word> {
         return listOf(
