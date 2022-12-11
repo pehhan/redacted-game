@@ -11,7 +11,6 @@ sealed class TextLayoutRepresentation {
     object VerticalSpace : TextLayoutRepresentation()
 }
 
-// TODO: Tests on this
 fun List<TextPart>.toLayoutRepresentation(): List<TextLayoutRepresentation> {
     return fold(emptyList()) { list, part ->
         when (part) {
