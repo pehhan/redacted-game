@@ -18,8 +18,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import se.phan.redacted.Guess
-import se.phan.redacted.GuessWithMatches
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessWithMatches
 import se.phan.redacted.android.ui.component.GradientBox
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 

@@ -1,10 +1,10 @@
 package se.phan.redacted.text
 
-import se.phan.redacted.Guess
-import se.phan.redacted.GuessResult
-import se.phan.redacted.WordAlreadyRevealed
-import se.phan.redacted.WordNotInText
-import se.phan.redacted.WordRevealed
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessResult
+import se.phan.redacted.guess.WordAlreadyRevealed
+import se.phan.redacted.guess.WordNotInText
+import se.phan.redacted.guess.WordRevealed
 
 data class Text(val parts: List<TextPart>) {
 

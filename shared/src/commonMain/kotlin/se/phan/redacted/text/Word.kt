@@ -1,6 +1,6 @@
 package se.phan.redacted.text
 
-import se.phan.redacted.Guess
+import se.phan.redacted.guess.Guess
 
 data class Word(val value: String, val redacted: Boolean) : TextPart() {
 

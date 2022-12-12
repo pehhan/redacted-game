@@ -2,7 +2,7 @@ package se.phan.redacted.text
 
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
-import se.phan.redacted.Guess
+import se.phan.redacted.guess.Guess
 import kotlin.test.Test
 
 class WordTest {

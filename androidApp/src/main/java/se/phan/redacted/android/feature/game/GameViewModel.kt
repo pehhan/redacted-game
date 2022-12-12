@@ -5,8 +5,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import se.phan.redacted.Game
-import se.phan.redacted.Guess
-import se.phan.redacted.GuessWithMatches
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessWithMatches
 import se.phan.redacted.text.Text
 
 class GameViewModel(private var game: Game) : ViewModel() {

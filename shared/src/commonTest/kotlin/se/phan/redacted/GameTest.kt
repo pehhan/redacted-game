@@ -3,6 +3,8 @@ package se.phan.redacted
 import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessWithMatches
 import se.phan.redacted.parser.TextParser
 import se.phan.redacted.text.Punctuation
 import se.phan.redacted.text.Space

@@ -2,8 +2,8 @@ package se.phan.redacted.renderer
 
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
-import se.phan.redacted.Guess
-import se.phan.redacted.WordRevealed
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.WordRevealed
 import se.phan.redacted.parser.TextParser
 import kotlin.test.Test
 import kotlin.test.fail

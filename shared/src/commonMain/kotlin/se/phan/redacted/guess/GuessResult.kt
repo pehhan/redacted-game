@@ -1,4 +1,4 @@
-package se.phan.redacted
+package se.phan.redacted.guess
 
 import se.phan.redacted.text.Text
 

@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import se.phan.redacted.Guess
+import se.phan.redacted.guess.Guess
 import se.phan.redacted.android.feature.game.createDummyGame
 import se.phan.redacted.android.ui.component.Background
 import se.phan.redacted.android.ui.theme.ApplicationTheme
@@ -19,7 +19,6 @@ import se.phan.redacted.layout.toLayoutRepresentation
 import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 import se.phan.redacted.text.Text
-import se.phan.redacted.text.Word
 
 private val VerticalPaddingBetweenParagraphs = 8.dp
 

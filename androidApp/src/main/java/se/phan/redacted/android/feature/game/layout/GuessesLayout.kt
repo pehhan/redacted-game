@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.flowlayout.FlowRow
-import se.phan.redacted.Guess
-import se.phan.redacted.GuessWithMatches
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessWithMatches
 import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.android.ui.theme.Gray500
 import se.phan.redacted.android.ui.theme.HorizontalPadding

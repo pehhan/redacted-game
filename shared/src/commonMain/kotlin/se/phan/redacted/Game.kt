@@ -1,5 +1,10 @@
 package se.phan.redacted
 
+import se.phan.redacted.guess.Guess
+import se.phan.redacted.guess.GuessWithMatches
+import se.phan.redacted.guess.WordAlreadyRevealed
+import se.phan.redacted.guess.WordNotInText
+import se.phan.redacted.guess.WordRevealed
 import se.phan.redacted.text.Text
 
 data class Game(val title: Text, val text: Text, val guesses: List<GuessWithMatches>) {
