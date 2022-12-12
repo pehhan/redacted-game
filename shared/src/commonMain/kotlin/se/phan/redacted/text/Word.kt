@@ -11,6 +11,6 @@ data class Word(val value: String, val redacted: Boolean) : TextPart() {
     }
 
     fun matches(word: Word): Boolean {
-        return value.uppercase() == word.value.uppercase()
+        return normalized().value.uppercase() == word.normalized().value.uppercase()
     }
 }

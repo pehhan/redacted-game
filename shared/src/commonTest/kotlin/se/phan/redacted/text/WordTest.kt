@@ -136,4 +136,10 @@ class WordTest {
     fun `word in a mix of characters in uppercase and integers matches word`() {
         expect(Word("20th").matches(Word("20TH"))).toEqual(true)
     }
+
+    @Test
+    fun `word with accent matches word without accent`() {
+        expect(Word("åäöáè").matches(Word("aaoae"))).toEqual(true)
+        expect(Word("aaoae").matches(Word("åäöáè"))).toEqual(true)
+    }
 }
