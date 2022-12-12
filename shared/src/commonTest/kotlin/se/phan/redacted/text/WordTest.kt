@@ -140,6 +140,20 @@ class WordTest {
     @Test
     fun `word with accent matches word without accent`() {
         expect(Word("åäöáè").matches(Word("aaoae"))).toEqual(true)
+    }
+
+    @Test
+    fun `word without accent matches word with accent`() {
         expect(Word("aaoae").matches(Word("åäöáè"))).toEqual(true)
+    }
+
+    @Test
+    fun `word with accent matches guess without accent`() {
+        expect(Word("åäöáè").matches(Guess("aaoae"))).toEqual(true)
+    }
+
+    @Test
+    fun `word without accent matches guess with accent`() {
+        expect(Word("aaoae").matches(Guess("åäöáè"))).toEqual(true)
     }
 }

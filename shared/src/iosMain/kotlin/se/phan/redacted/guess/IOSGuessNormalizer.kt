@@ -1,6 +1,6 @@
-package se.phan.redacted.text
+package se.phan.redacted.guess
 
-actual fun Word.normalized(): Word {
+actual fun Guess.normalized(): Guess {
     // TODO: Actual implementation, something like below
 
 //    NSString *str = @"Et ça sera sa moitié.";
