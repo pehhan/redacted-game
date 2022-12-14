@@ -1,11 +1,10 @@
 package se.phan.redacted.renderer
 
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.guess.Guess
 import se.phan.redacted.guess.WordRevealed
 import se.phan.redacted.parser.TextParser
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.fail
 
 class TrueWordLengthPunctuationVisibleRendererTest {
@@ -22,13 +21,13 @@ class TrueWordLengthPunctuationVisibleRendererTest {
         val renderer = TrueWordLengthPunctuationVisibleRenderer()
         val renderedTextBefore = renderer.render(text)
 
-        expect(renderedTextBefore).toEqual(expectedTextBeforeGuess)
+        assertEquals(expected = expectedTextBeforeGuess, actual = renderedTextBefore)
 
         val result = text.makeGuess(Guess("Atreides"))
 
         if (result is WordRevealed) {
             val renderedTextAfter = renderer.render(result.text)
-            expect(renderedTextAfter).toEqual(expectedTextAfterGuess)
+            assertEquals(expected = expectedTextAfterGuess, actual = renderedTextAfter)
         } else {
             fail()
         }
@@ -77,13 +76,13 @@ class TrueWordLengthPunctuationVisibleRendererTest {
         val renderer = TrueWordLengthPunctuationVisibleRenderer()
         val renderedTextBefore = renderer.render(text)
 
-        expect(renderedTextBefore).toEqual(expectedTextBeforeGuess)
+        assertEquals(expected = expectedTextBeforeGuess, actual = renderedTextBefore)
 
         val result = text.makeGuess(Guess("Dune"))
 
         if (result is WordRevealed) {
             val renderedTextAfter = renderer.render(result.text)
-            expect(renderedTextAfter).toEqual(expectedTextAfterGuess)
+            assertEquals(expected = expectedTextAfterGuess, actual = renderedTextAfter)
         } else {
             fail()
         }

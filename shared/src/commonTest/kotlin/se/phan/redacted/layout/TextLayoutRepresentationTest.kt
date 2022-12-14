@@ -1,11 +1,10 @@
 package se.phan.redacted.layout
 
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.parser.TextParser
 import se.phan.redacted.text.Space
 import se.phan.redacted.text.Word
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TextLayoutRepresentationTest {
 
@@ -62,6 +61,6 @@ class TextLayoutRepresentationTest {
             )
         )
 
-        expect(text.parts.toLayoutRepresentation()).toEqual(expectedRepresentation)
+        assertEquals(expected = expectedRepresentation, actual = text.parts.toLayoutRepresentation())
     }
 }

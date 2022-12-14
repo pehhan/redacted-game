@@ -1,8 +1,5 @@
 package se.phan.redacted
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.guess.Guess
 import se.phan.redacted.guess.GuessWithMatches
 import se.phan.redacted.parser.TextParser
@@ -11,6 +8,10 @@ import se.phan.redacted.text.Space
 import se.phan.redacted.text.Text
 import se.phan.redacted.text.Word
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class GameTest {
 
@@ -19,10 +20,10 @@ class GameTest {
         val text = TextParser.parse("Paul Atreides")
         val game = Game(text, text)
 
-        expect(game.guesses).toBeEmpty()
-        expect(game.text).toEqual(text)
-        expect(game.title).toEqual(text)
-        expect(game.isCompleted()).toEqual(false)
+        assertTrue(game.guesses.isEmpty())
+        assertEquals(expected = text, actual = game.text)
+        assertEquals(expected = text, actual = game.title)
+        assertFalse(game.isCompleted())
     }
 
     @Test
@@ -43,10 +44,10 @@ class GameTest {
 
         val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
 
-        expect(gameWithGuess.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuess.text).toEqual(expectedText)
-        expect(gameWithGuess.title).toEqual(expectedText)
-        expect(gameWithGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuess.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuess.text)
+        assertEquals(expected = expectedText, actual = gameWithGuess.title)
+        assertFalse(gameWithGuess.isCompleted())
     }
 
     @Test
@@ -67,10 +68,10 @@ class GameTest {
 
         val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase().trim()), 2))
 
-        expect(gameWithGuess.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuess.text).toEqual(expectedText)
-        expect(gameWithGuess.title).toEqual(expectedText)
-        expect(gameWithGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuess.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuess.text)
+        assertEquals(expected = expectedText, actual = gameWithGuess.title)
+        assertFalse(gameWithGuess.isCompleted())
     }
 
     @Test
@@ -81,7 +82,7 @@ class GameTest {
 
         val gameWithGuess = originalGame.makeGuess(guess)
 
-        expect(gameWithGuess.guesses).toEqual(emptyList())
+        assertEquals(expected = emptyList(), actual = gameWithGuess.guesses)
     }
 
     @Test
@@ -102,10 +103,10 @@ class GameTest {
 
         val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 0))
 
-        expect(gameWithGuess.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuess.text).toEqual(expectedText)
-        expect(gameWithGuess.title).toEqual(expectedText)
-        expect(gameWithGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuess.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuess.text)
+        assertEquals(expected = expectedText, actual = gameWithGuess.title)
+        assertFalse(gameWithGuess.isCompleted())
     }
 
     @Test
@@ -129,10 +130,10 @@ class GameTest {
 
         val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 0))
 
-        expect(gameWithGuesses.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuesses.text).toEqual(expectedText)
-        expect(gameWithGuesses.title).toEqual(expectedText)
-        expect(gameWithGuesses.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuesses.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuesses.text)
+        assertEquals(expected = expectedText, actual = gameWithGuesses.title)
+        assertFalse(gameWithGuesses.isCompleted())
     }
 
     @Test
@@ -155,10 +156,10 @@ class GameTest {
 
         val expectedGuesses = listOf(GuessWithMatches(Guess(guess.value.lowercase()), 2))
 
-        expect(gameWithGuess.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuess.text).toEqual(expectedText)
-        expect(gameWithGuess.title).toEqual(expectedText)
-        expect(gameWithGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuess.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuess.text)
+        assertEquals(expected = expectedText, actual = gameWithGuess.title)
+        assertFalse(gameWithGuess.isCompleted())
     }
 
     @Test
@@ -185,10 +186,10 @@ class GameTest {
             GuessWithMatches(Guess(guess2.value.lowercase()), 2)
         )
 
-        expect(gameWithGuess.guesses).toEqual(expectedGuesses)
-        expect(gameWithGuess.text).toEqual(expectedText)
-        expect(gameWithGuess.title).toEqual(expectedText)
-        expect(gameWithGuess.isCompleted()).toEqual(true)
+        assertEquals(expected = expectedGuesses, actual = gameWithGuess.guesses)
+        assertEquals(expected = expectedText, actual = gameWithGuess.text)
+        assertEquals(expected = expectedText, actual = gameWithGuess.title)
+        assertTrue(gameWithGuess.isCompleted())
     }
 
     @Test
@@ -211,10 +212,10 @@ class GameTest {
 
         val expectedGuesses1 = listOf(GuessWithMatches(Guess(guess1.value.lowercase()), 1))
 
-        expect(gameAfterFirstGuess.guesses).toEqual(expectedGuesses1)
-        expect(gameAfterFirstGuess.text).toEqual(text)
-        expect(gameAfterFirstGuess.title).toEqual(expectedTitleAfterFirstGuess)
-        expect(gameAfterFirstGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses1, actual = gameAfterFirstGuess.guesses)
+        assertEquals(expected = text, actual = gameAfterFirstGuess.text)
+        assertEquals(expected = expectedTitleAfterFirstGuess, actual = gameAfterFirstGuess.title)
+        assertFalse(gameAfterFirstGuess.isCompleted())
 
         val guess2 = Guess("Messiah")
         val gameAfterSecondGuess = gameAfterFirstGuess.makeGuess(guess2)
@@ -240,10 +241,10 @@ class GameTest {
             GuessWithMatches(Guess(guess2.value.lowercase()), 1)
         )
 
-        expect(gameAfterSecondGuess.guesses).toEqual(expectedGuesses2)
-        expect(gameAfterSecondGuess.text).toEqual(expectedTextAfterSecondGuess)
-        expect(gameAfterSecondGuess.title).toEqual(expectedTitleAfterSecondGuess)
-        expect(gameAfterSecondGuess.isCompleted()).toEqual(true)
+        assertEquals(expected = expectedGuesses2, actual = gameAfterSecondGuess.guesses)
+        assertEquals(expected = expectedTextAfterSecondGuess, actual = gameAfterSecondGuess.text)
+        assertEquals(expected = expectedTitleAfterSecondGuess, actual = gameAfterSecondGuess.title)
+        assertTrue(gameAfterSecondGuess.isCompleted())
     }
 
     @Test
@@ -275,10 +276,10 @@ class GameTest {
 
         val expectedGuesses1 = listOf(GuessWithMatches(Guess(guess1.value.lowercase()), 1))
 
-        expect(gameAfterFirstGuess.guesses).toEqual(expectedGuesses1)
-        expect(gameAfterFirstGuess.text).toEqual(expectedTextAfterFirstGuess)
-        expect(gameAfterFirstGuess.title).toEqual(title)
-        expect(gameAfterFirstGuess.isCompleted()).toEqual(false)
+        assertEquals(expected = expectedGuesses1, actual = gameAfterFirstGuess.guesses)
+        assertEquals(expected = expectedTextAfterFirstGuess, actual = gameAfterFirstGuess.text)
+        assertEquals(expected = title, actual = gameAfterFirstGuess.title)
+        assertFalse(gameAfterFirstGuess.isCompleted())
 
         val guess2 = Guess("Dune")
         val gameAfterSecondGuess = gameAfterFirstGuess.makeGuess(guess2)
@@ -311,10 +312,10 @@ class GameTest {
             GuessWithMatches(Guess(guess2.value.lowercase()), 2)
         )
 
-        expect(gameAfterSecondGuess.guesses).toEqual(expectedGuesses2)
-        expect(gameAfterSecondGuess.text).toEqual(expectedTextAfterSecondGuess)
-        expect(gameAfterSecondGuess.title).toEqual(expectedTitleAfterSecondGuess)
-        expect(gameAfterSecondGuess.isCompleted()).toEqual(true)
+        assertEquals(expected = expectedGuesses2, actual = gameAfterSecondGuess.guesses)
+        assertEquals(expected = expectedTextAfterSecondGuess, actual = gameAfterSecondGuess.text)
+        assertEquals(expected = expectedTitleAfterSecondGuess, actual = gameAfterSecondGuess.title)
+        assertTrue(gameAfterSecondGuess.isCompleted())
     }
 
     @Test
@@ -322,17 +323,17 @@ class GameTest {
         val text = TextParser.parse("Paul Atreides")
         val game = Game(text, text)
 
-        expect(game.latestGuess).toEqual(null)
+        assertNull(game.latestGuess)
 
         val firstGuess = Guess("atreides")
         val gameAfterFirstCorrectGuess = game.makeGuess(firstGuess)
 
-        expect(gameAfterFirstCorrectGuess.latestGuess).toEqual(firstGuess)
+        assertEquals(expected = firstGuess, actual = gameAfterFirstCorrectGuess.latestGuess)
 
         val secondGuess = Guess("Paul")
         val gameAfterSecondCorrectGuess = game.makeGuess(secondGuess)
 
-        expect(gameAfterSecondCorrectGuess.latestGuess).toEqual(Guess("paul"))
+        assertEquals(expected = Guess("paul"), actual = gameAfterSecondCorrectGuess.latestGuess)
     }
 
     @Test
@@ -340,11 +341,11 @@ class GameTest {
         val text = TextParser.parse("Paul Atreides")
         val game = Game(text, text)
 
-        expect(game.latestGuess).toEqual(null)
+        assertNull(game.latestGuess)
 
         val guess = Guess("Dune")
         val gameAfterIncorrectGuess = game.makeGuess(guess)
 
-        expect(gameAfterIncorrectGuess.latestGuess).toEqual(Guess("dune"))
+        assertEquals(expected = Guess("dune"), actual = gameAfterIncorrectGuess.latestGuess)
     }
 }

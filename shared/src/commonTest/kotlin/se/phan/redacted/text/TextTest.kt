@@ -1,14 +1,14 @@
 package se.phan.redacted.text
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBeTheInstance
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.guess.Guess
 import se.phan.redacted.guess.WordAlreadyRevealed
 import se.phan.redacted.guess.WordNotInText
 import se.phan.redacted.guess.WordRevealed
 import se.phan.redacted.parser.TextParser
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import kotlin.test.fail
 
 class TextTest {
@@ -20,7 +20,7 @@ class TextTest {
 
         val result = text.makeGuess(Guess("Dune"))
 
-        expect(result).toBeTheInstance(WordNotInText)
+        assertTrue(result is WordNotInText)
     }
 
     @Test
@@ -33,7 +33,7 @@ class TextTest {
 
         if (result is WordRevealed) {
             val secondResult = result.text.makeGuess(guess)
-            expect(secondResult).toBeTheInstance(WordAlreadyRevealed)
+            assertTrue(secondResult is WordAlreadyRevealed)
         } else {
             fail()
         }
@@ -55,8 +55,8 @@ class TextTest {
         )
 
         if (result is WordRevealed) {
-            expect(result.text).toEqual(expectedText)
-            expect(result.matches).toEqual(1)
+            assertEquals(expected = expectedText, actual = result.text)
+            assertEquals(expected = 1, actual = result.matches)
         } else {
             fail()
         }
@@ -84,8 +84,8 @@ class TextTest {
         )
 
         if (result is WordRevealed) {
-            expect(result.text).toEqual(expectedText)
-            expect(result.matches).toEqual(2)
+            assertEquals(expected = expectedText, actual = result.text)
+            assertEquals(expected = 2, actual = result.matches)
         } else {
             fail()
         }
@@ -160,7 +160,7 @@ class TextTest {
         )
         val text = Text(parts)
 
-        expect(text.areAllWordsRevealed()).toEqual(true)
+        assertTrue(text.areAllWordsRevealed())
     }
 
     @Test
@@ -172,7 +172,7 @@ class TextTest {
         )
         val text = Text(parts)
 
-        expect(text.areAllWordsRevealed()).toEqual(false)
+        assertFalse(text.areAllWordsRevealed())
     }
 
     @Test
@@ -194,7 +194,7 @@ class TextTest {
             )
         )
 
-        expect(revealedText).toEqual(expectedText)
+        assertEquals(expected = expectedText, actual = revealedText)
     }
 
     @Test
@@ -246,7 +246,7 @@ class TextTest {
             )
         )
 
-        expect(revealedText).toEqual(expectedText)
+        assertEquals(expected = expectedText, actual = revealedText)
     }
 
     @Test
@@ -278,7 +278,7 @@ class TextTest {
             )
         )
 
-        expect(revealedText).toEqual(expectedText)
+        assertEquals(expected = expectedText, actual = revealedText)
     }
 
     private fun testDifferentCaps(wordInText: String, guess: String) {
@@ -296,8 +296,8 @@ class TextTest {
         )
 
         if (result is WordRevealed) {
-            expect(result.text).toEqual(expectedText)
-            expect(result.matches).toEqual(1)
+            assertEquals(expected = expectedText, actual = result.text)
+            assertEquals(expected = 1, actual = result.matches)
         } else {
             fail()
         }

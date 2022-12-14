@@ -1,7 +1,5 @@
 package se.phan.redacted
 
-import ch.tutteli.atrium.api.fluent.en_GB.toEqual
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.difficulty.Difficulty
 import se.phan.redacted.parser.TextParser
 import se.phan.redacted.text.Punctuation
@@ -9,6 +7,7 @@ import se.phan.redacted.text.Space
 import se.phan.redacted.text.Text
 import se.phan.redacted.text.Word
 import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class GameCreatorTest {
 
@@ -36,7 +35,7 @@ class GameCreatorTest {
             )
         )
 
-        expect(game.text).toEqual(expectedTextAfterGameCreation)
+        assertEquals(expected = expectedTextAfterGameCreation, actual = game.text)
     }
 
     @Test
@@ -63,6 +62,6 @@ class GameCreatorTest {
             )
         )
 
-        expect(game.text).toEqual(expectedTextAfterGameCreation)
+        assertEquals(expected = expectedTextAfterGameCreation, actual = game.text)
     }
 }

@@ -1,13 +1,12 @@
 package se.phan.redacted.parser
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
-import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
-import ch.tutteli.atrium.api.verbs.expect
 import se.phan.redacted.text.Newline
 import se.phan.redacted.text.Punctuation
 import se.phan.redacted.text.Space
 import se.phan.redacted.text.Word
 import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class TextParserTest {
 
@@ -15,7 +14,7 @@ class TextParserTest {
     fun `parse empty string`() {
         val text = TextParser.parse("")
 
-        expect(text.parts).toBeEmpty()
+        assertTrue(text.parts.isEmpty())
     }
 
     @Test
@@ -23,7 +22,10 @@ class TextParserTest {
         val str = "Dune"
         val text = TextParser.parse(str)
 
-        expect(text.parts).toContainExactly(Word(str))
+        assertEquals(
+            expected = listOf(Word(str)),
+            actual = text.parts
+        )
     }
 
     @Test
@@ -31,10 +33,13 @@ class TextParserTest {
         val str = "Paul Atreides"
         val text = TextParser.parse(str)
 
-        expect(text.parts).toContainExactly(
-            Word("Paul"),
-            Space,
-            Word("Atreides")
+        assertEquals(
+            expected = listOf(
+                Word("Paul"),
+                Space,
+                Word("Atreides")
+            ),
+            actual = text.parts
         )
     }
 
@@ -50,11 +55,14 @@ class TextParserTest {
         val str = "Paul, Atreides"
         val text = TextParser.parse(str)
 
-        expect(text.parts).toContainExactly(
-            Word("Paul"),
-            Punctuation(','),
-            Space,
-            Word("Atreides")
+        assertEquals(
+            expected = listOf(
+                Word("Paul"),
+                Punctuation(','),
+                Space,
+                Word("Atreides")
+            ),
+            actual = text.parts
         )
     }
 
@@ -68,11 +76,14 @@ class TextParserTest {
 
         val text = TextParser.parse(str)
 
-        expect(text.parts).toContainExactly(
-            Word("Paul"),
-            Newline,
-            Newline,
-            Word("Atreides"),
+        assertEquals(
+            expected = listOf(
+                Word("Paul"),
+                Newline,
+                Newline,
+                Word("Atreides")
+            ),
+            actual = text.parts
         )
     }
 
@@ -80,11 +91,14 @@ class TextParserTest {
         val str = "Paul Atreides$punctuationMark"
         val text = TextParser.parse(str)
 
-        expect(text.parts).toContainExactly(
-            Word("Paul"),
-            Space,
-            Word("Atreides"),
-            Punctuation(punctuationMark),
+        assertEquals(
+            expected = listOf(
+                Word("Paul"),
+                Space,
+                Word("Atreides"),
+                Punctuation(punctuationMark)
+            ),
+            actual = text.parts
         )
     }
 }
