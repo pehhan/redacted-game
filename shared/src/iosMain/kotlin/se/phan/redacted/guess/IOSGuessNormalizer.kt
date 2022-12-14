@@ -1,11 +1,7 @@
 package se.phan.redacted.guess
 
+import se.phan.redacted.normalized
+
 actual fun Guess.normalized(): Guess {
-    // TODO: Actual implementation, something like below
-
-//    NSString *str = @"Et ça sera sa moitié.";
-//    NSData *data = [str dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-//    NSString *newStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-
-    return this
+    return Guess(value.normalized())
 }
