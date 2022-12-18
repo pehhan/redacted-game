@@ -1,13 +1,15 @@
-package se.phan.redacted.android.feature.game
+package se.phan.redacted.android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import se.phan.redacted.android.feature.game.GameViewModel
+import se.phan.redacted.android.feature.game.createDummyGame
 import se.phan.redacted.android.feature.game.layout.GameLayout
 import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 
-class GameActivity : ComponentActivity() {
+class RedactedActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
