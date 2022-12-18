@@ -21,27 +21,24 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import se.phan.redacted.guess.Guess
 import se.phan.redacted.android.feature.game.GameViewModel
 import se.phan.redacted.android.feature.game.createDummyGame
-import se.phan.redacted.android.ui.component.Background
-import se.phan.redacted.android.ui.theme.ApplicationTheme
 import se.phan.redacted.android.ui.theme.HorizontalPadding
 import se.phan.redacted.android.ui.theme.VerticalPadding
 import se.phan.redacted.renderer.TextRenderer
 import se.phan.redacted.renderer.TrueWordLengthPunctuationVisibleRenderer
 
 @Composable
-fun GameLayout(
+fun GameScreen(
     gameViewModel: GameViewModel,
     renderer: TextRenderer,
-    onGuess: (String) -> Unit,
-    onGuessClick: (Guess) -> Unit
+    onNavigateToGameCompletedScreen: () -> Unit
 ) {
     val title by gameViewModel.title.collectAsState()
     val text by gameViewModel.text.collectAsState()
     val guesses by gameViewModel.guesses.collectAsState()
     val latestGuess by gameViewModel.latestGuess.collectAsState()
+    val completed by gameViewModel.completed.collectAsState()
 
     val localDensity = LocalDensity.current
 
@@ -49,58 +46,60 @@ fun GameLayout(
         mutableStateOf(0.dp)
     }
 
-    ApplicationTheme {
-        Background {
-            Box {
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(
-                            start = HorizontalPadding,
-                            top = VerticalPadding,
-                            end = HorizontalPadding,
-                            bottom = guessLayoutHeight + VerticalPadding
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(VerticalPadding)
-                ) {
-                    TextLayout(
-                        title,
-                        latestGuess,
-                        renderer,
-                        fontSize = 28.sp
-                    )
-                    TextLayout(
-                        text,
-                        latestGuess,
-                        renderer,
-                        fontSize = 18.sp)
-                }
-                GuessLayout(
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .fillMaxWidth()
-                        .onGloballyPositioned { coordinates ->
-                            guessLayoutHeight = with(localDensity) { coordinates.size.height.toDp() }
-                        },
-                    guesses = guesses,
-                    onGuess = { guess ->
-                        onGuess(guess)
-                    },
-                    onGuessClick = { guess ->
-                        onGuessClick(guess)
-                    }
-                )
-            }
+    // TODO: Is this how it should be done? Feels a bit strange
+    if (completed) {
+        onNavigateToGameCompletedScreen()
+    }
+
+    Box {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    start = HorizontalPadding,
+                    top = VerticalPadding,
+                    end = HorizontalPadding,
+                    bottom = guessLayoutHeight + VerticalPadding
+                ),
+            verticalArrangement = Arrangement.spacedBy(VerticalPadding)
+        ) {
+            TextLayout(
+                title,
+                latestGuess,
+                renderer,
+                fontSize = 28.sp
+            )
+            TextLayout(
+                text,
+                latestGuess,
+                renderer,
+                fontSize = 18.sp
+            )
         }
+        GuessLayout(
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .fillMaxWidth()
+                .onGloballyPositioned { coordinates ->
+                    guessLayoutHeight = with(localDensity) { coordinates.size.height.toDp() }
+                },
+            guesses = guesses,
+            onGuess = { guess ->
+                gameViewModel.onGuess(guess)
+            },
+            onGuessClick = { guess ->
+                gameViewModel.onGuessClick(guess)
+            }
+        )
     }
 }
 
 @Preview
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun GameLayoutPreview() {
+private fun GameScreenPreview() {
     val renderer = TrueWordLengthPunctuationVisibleRenderer()
     val gameViewModel = GameViewModel(createDummyGame())
 
-    GameLayout(gameViewModel, renderer, {}, {})
+    GameScreen(gameViewModel, renderer) {}
 }

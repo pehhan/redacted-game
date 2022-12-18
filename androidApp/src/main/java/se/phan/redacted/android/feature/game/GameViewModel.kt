@@ -11,15 +11,18 @@ import se.phan.redacted.text.Text
 
 class GameViewModel(private var game: Game) : ViewModel() {
 
+    // TODO: Simplify and only expose game?
     private val _title = MutableStateFlow(title())
     private val _text = MutableStateFlow(text())
     private val _guesses = MutableStateFlow(guesses())
     private val _latestGuess = MutableStateFlow(latestGuess())
+    private val _completed = MutableStateFlow(completed())
 
     val title: StateFlow<Text> = _title.asStateFlow()
     val text: StateFlow<Text> = _text.asStateFlow()
     val guesses: StateFlow<List<GuessWithMatches>> = _guesses.asStateFlow()
     val latestGuess: StateFlow<Guess?> = _latestGuess.asStateFlow()
+    val completed: StateFlow<Boolean> = _completed.asStateFlow()
 
     fun onGuess(guess: String) {
         game = game.makeGuess(Guess(guess))
@@ -28,6 +31,7 @@ class GameViewModel(private var game: Game) : ViewModel() {
         _text.value = text()
         _guesses.value = guesses()
         _latestGuess.value = latestGuess()
+        _completed.value = completed()
     }
 
     fun onGuessClick(guess: Guess) {
@@ -48,5 +52,9 @@ class GameViewModel(private var game: Game) : ViewModel() {
 
     private fun latestGuess(): Guess? {
         return game.latestGuess
+    }
+
+    private fun completed(): Boolean {
+        return game.isCompleted()
     }
 }
